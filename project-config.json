@@ -1,0 +1,26 @@
+{
+  "__example": {
+    "projectFolder": "this is project folder name",
+    "mainProjectName": "this is gradle projects name",
+    "mainOcpImage": "this is openshift project docker image name",
+    "deploymentConfig": "this is openshift DeploymentConfig Name"
+  },
+  "product": {
+    "projectFolder": "product",
+    "mainProjectName": "ninja-product",
+    "mainOcpImage": "ninja-product",
+    "deploymentConfig": "ninja-product"
+  },
+  "order": {
+    "projectFolder": "order",
+    "mainProjectName": "ninja-order",
+    "mainOcpImage": "ninja-order",
+    "deploymentConfig": "ninja-order"
+  },
+  "inventory": {
+    "projectFolder": "inventory",
+    "mainProjectName": "ninja-inventory",
+    "mainOcpImage": "ninja-inventory",
+    "deploymentConfig": "ninja-inventory"
+  }
+}
