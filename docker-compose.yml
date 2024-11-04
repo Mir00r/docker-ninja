@@ -1,0 +1,80 @@
+version: '3.8' # Specifies the version of the Docker Compose syntax to use
+
+services:
+  # Definition for the product-service application
+  product-service:
+    build:
+      context: ./product-service # Directory containing the Dockerfile for product-service
+      dockerfile: Dockerfile-product # Specifies a custom Dockerfile for product-service
+    ports:
+      - "8081:8081" # Maps port 8081 on the host to port 8081 in the container
+    depends_on:
+      - product-db # Ensures product-db service is started before product-service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://product-db:5432/productdb # Database connection URL
+      - SPRING_DATASOURCE_USERNAME=postgres # Username for the PostgreSQL database
+      - SPRING_DATASOURCE_PASSWORD=postgres # Password for the PostgreSQL database
+
+  # Definition for the inventory-service application
+  inventory-service:
+    build:
+      context: ./inventory-service # Directory containing the Dockerfile for inventory-service
+      dockerfile: Dockerfile-inventory # Specifies a custom Dockerfile for inventory-service
+    ports:
+      - "8082:8082" # Maps port 8082 on the host to port 8082 in the container
+    depends_on:
+      - inventory-db # Ensures inventory-db service is started before inventory-service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://inventory-db:5432/inventorydb # Database connection URL
+      - SPRING_DATASOURCE_USERNAME=postgres # Username for the PostgreSQL database
+      - SPRING_DATASOURCE_PASSWORD=postgres # Password for the PostgreSQL database
+
+  # Definition for the order-service application
+  order-service:
+    build:
+      context: ./order-service # Directory containing the Dockerfile for order-service
+      dockerfile: Dockerfile-order # Specifies a custom Dockerfile for order-service
+    ports:
+      - "8083:8083" # Maps port 8083 on the host to port 8083 in the container
+    depends_on:
+      - order-db # Ensures order-db service is started before order-service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://order-db:5432/orderdb # Database connection URL
+      - SPRING_DATASOURCE_USERNAME=postgres # Username for the PostgreSQL database
+      - SPRING_DATASOURCE_PASSWORD=postgres # Password for the PostgreSQL database
+
+  # Definition for the PostgreSQL database for product-service
+  product-db:
+    image: postgres:13 # Uses PostgreSQL version 13 as the base image
+    environment:
+      - POSTGRES_DB=productdb # Sets the database name to productdb
+      - POSTGRES_USER=postgres # Sets the username for PostgreSQL
+      - POSTGRES_PASSWORD=postgres # Sets the password for PostgreSQL
+    volumes:
+      - product-data:/var/lib/postgresql/data # Persists database data in a named volume
+
+  # Definition for the PostgreSQL database for inventory-service
+  inventory-db:
+    image: postgres:13 # Uses PostgreSQL version 13 as the base image
+    environment:
+      - POSTGRES_DB=inventorydb # Sets the database name to inventorydb
+      - POSTGRES_USER=postgres # Sets the username for PostgreSQL
+      - POSTGRES_PASSWORD=postgres # Sets the password for PostgreSQL
+    volumes:
+      - inventory-data:/var/lib/postgresql/data # Persists database data in a named volume
+
+  # Definition for the PostgreSQL database for order-service
+  order-db:
+    image: postgres:13 # Uses PostgreSQL version 13 as the base image
+    environment:
+      - POSTGRES_DB=orderdb # Sets the database name to orderdb
+      - POSTGRES_USER=postgres # Sets the username for PostgreSQL
+      - POSTGRES_PASSWORD=postgres # Sets the password for PostgreSQL
+    volumes:
+      - order-data:/var/lib/postgresql/data # Persists database data in a named volume
+
+# Definition of named volumes to persist data for each database
+volumes:
+  product-data: # Named volume for product-service database data
+  inventory-data: # Named volume for inventory-service database data
+  order-data: # Named volume for order-service database data
