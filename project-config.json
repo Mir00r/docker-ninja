@@ -22,5 +22,11 @@
     "mainProjectName": "ninja-inventory",
     "mainOcpImage": "ninja-inventory",
     "deploymentConfig": "ninja-inventory"
+  },
+  "stock": {
+    "projectFolder": "stock",
+    "mainProjectName": "ninja-stock",
+    "mainOcpImage": "ninja-stock",
+    "deploymentConfig": "ninja-stock"
   }
 }

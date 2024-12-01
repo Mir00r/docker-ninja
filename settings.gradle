@@ -28,6 +28,7 @@ rootProject.name = "${rootProjectName}"
   "product",      // product related microservice
   "order",      // order related microservice
   "inventory",      // inventory related microservice
+  "stock",      // stock related microservice using Go
 ].forEach { dir ->
   include dir
   project(":${dir}").name = "${projectPrefix}${dir}"
